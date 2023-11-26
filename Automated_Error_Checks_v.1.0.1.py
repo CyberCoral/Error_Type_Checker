@@ -162,7 +162,7 @@ def ConditionCheck(var, conditions: str, severity_mode: int = 1):
                 exec(compile(f"b = {c}\nl.append(b)","<string>","exec"))
                 b = l[0]
                 if b == False:
-                    raise ValueError(f"The conditions ({c}) are not met.")
+                    raise ValueError(f"The conditions ({c}) are not met with var = {var}.")
                 return True
             except SyntaxError:
                 raise SyntaxError(f"The conditions ({c}) do not make sense, they raise SyntaxError.")
