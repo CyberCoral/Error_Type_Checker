@@ -1,5 +1,5 @@
 
-# ver. Sun/26/Nov/2023
+# ver. Mon/27/Nov/2023
 #
 # Made by: CyberCoral
 # ------------------------------------------------
@@ -71,15 +71,14 @@ def ErrorTypeFinder(var, conditions):
         raise SyntaxError("A variable cannot be two types at the same time.")
     elif conditions.count(False) == len(conditions):
         raise SyntaxError("There has to be a condition that is met.")
-
-    elif isinstance(var, str) != True and len(conditions) >= 7:
-        if conditions.index(True) == 6:
-            raise TypeError("{} is supposed to be {}".format(var, str))
-        else:
-            del conditions[6]
             
-    elif isinstance(var, str) == True and len(conditions) >= 7:
-        if conditions.index(True) == 6:
+    elif len(conditions) >= 7:
+        if isinstance(var, str) != True and conditions.index(True) == 6:
+            raise TypeError("{} is not supposed to be {}".format(var, str))
+        elif isinstance(var, str) != True and conditions.index(True) != 6:
+            pass
+        
+        elif isinstance(var, str) == True and conditions.index(True) == 6:
             return True
         else:
             raise TypeError("{} is supposed to be {}".format(var, str))
