@@ -124,8 +124,8 @@ def ConditionCheck(var, conditions: str, severity_mode: int = 1):
     conditions are not met.
 
     The structure of conditions is the next one:
-    "<condition> & <condition>" for "and" structures.
-    "<condition> | <condition>" for "or" structures.
+    "<condition> && <condition>" for "and" structures.
+    "<condition> || <condition>" for "or" structures.
 
     All the conditions must have "var" in them.
     '''
@@ -138,7 +138,7 @@ def ConditionCheck(var, conditions: str, severity_mode: int = 1):
     if isinstance(severity_mode, int) != True:
         raise TypeError("severity_mode must be an int.")
 
-    c = "".join([str(i) for i in conditions]).replace("&"," and ").replace("|"," or ")
+    c = "".join([str(i) for i in conditions]).replace("&&"," and ").replace("||"," or ")
     l = []
     
 
