@@ -242,7 +242,7 @@ def AutomatedConditionCheck(variables: list, condition_batch: list, severity_mod
     elif isinstance(severity_modes, list) != True:
         raise TypeError("severity_modes must be a list")
 
-    if len(variables) != len(condition_batch) and len(variables) != len(severity_modes):
+    if len(variables) != len(condition_batch) or len(variables) != len(severity_modes):
         raise SyntaxError("There must be the same number of elements for variables and condition_batch ({}).".format(len(variables)))
 
     for i in range(len(condition_batch)):
