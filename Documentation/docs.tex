@@ -1,0 +1,218 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdftitle={Overleaf Example},
+	pdfpagemode=FullScreen,
+}
+
+\usepackage{xcolor}
+
+\definecolor{grey}{rgb}{0.1,0.3,0.2}
+\definecolor{purpell}{rgb}{0.3,0.5,0.7}
+\definecolor{string_green}{rgb}{0,206,0}
+
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{9} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{9}  % for normal
+
+
+\begin{document}
+	\begin{titlepage}
+		\centering
+		\vfill
+		\vfill
+		{\huge Documentation of Automated\_Error\_Checks.py}
+		\vspace{3cm}
+		
+		by
+		{\Large 
+		CyberCoral
+		\vspace{2cm}
+		
+		\today}
+		\vfill
+
+	\end{titlepage}
+	\newpage
+	\tableofcontents
+	\newpage
+	\lstset{language=python,
+		tabsize=2,
+		commentstyle=\color{grey},    % comment style
+		stringstyle=\color{purpell},  % string literal style
+		keywordstyle=\color{blue},
+		emphstyle=\color{red}    % Custom highlighting style
+	}
+	\section{Introduction to the program.}
+	The program, written in Python3 and using the regex module \textbf{re}, is a python error handler for general use. It means this program will let you cover more easily each condition and type check you would need.
+	
+	Instead of using various if-else statements, which occupy many lines of code, you can use that module and its functions to compact that part of any secure code.
+	
+	\lstinputlisting[language=Python, firstline=0, lastline=9,caption={Credits for the author.}]{Automated_Error_Checks.py}
+	
+	There are three main sections that this documentation will cover:
+	
+	\subsection{Simple functions.} 
+	In this section, the basics of the program will be covered. It will view two main programs: 
+	
+	ErrorTypeFinder() and ConditionCheck(). \ref{error_check_1}
+	
+	\hspace{-0.5cm}It also will show a quality of life converter called BinaryToTruthList(). \ref{binary}
+	
+	\ref{simple}
+	
+	\subsection{Complex / Automated functions.}
+	In this part, there are the advanced versions of the three basic functions, expanded to cover more than 1 variable at a time. 
+		
+	\ref{complex}
+	\subsection{Use in Python3 example.}
+	Last but not least, there will be an example of how you can use the module and its functions to save code.
+	
+	\ref{example}
+	\newpage
+	\section{Simple functions: BinaryToTruthList(), ErrorTypeFinder(), ConditionCheck()} 
+	\label{simple}
+	
+	The core functions of the module are ErrorTypeFinder() and ConditionCheck():
+	
+	\subsection{ErrorTypeFinder()}
+		
+	\lstinputlisting[language=Python, firstline=35, lastline=109,caption={The code for the function (lines 35 to 109 of the program).}]{Automated_Error_Checks.py}
+	\label{error_check_1}
+	\newpage
+	
+	First, this function has two arguments:
+	\begin{enumerate}
+		\item var (the variable you introduce)
+		\item condition (a list of True/False values that determines what type var should be)
+	\end{enumerate}
+	\vspace{3cm}
+	
+	Then, let's check the order of types in the function:
+	
+	\lstinputlisting[language=Python, firstline=45, lastline=46]{Automated_Error_Checks.py}
+	
+	The types follow this order:
+	
+	\begin{enumerate}
+		\item int
+		\item float
+		\item complex
+		\item tuple
+		\item list
+		\item dict
+		\item (str) (opcional)
+	\end{enumerate}
+	
+	There can be at most 7 boolean values that determine types by default in the program (although you can add more if you reprogram it).
+	
+	If there are more than 7 values (or the number of elements in condition), those will be omitted. You can only choose one type to check at a time without getting an error.
+	\newpage
+	
+	After a lot of checks for the conditions variable, a general exec() check will be executed, which contains the next logic:
+
+	\lstinputlisting[firstline=101,lastline=106]{Automated_Error_Checks.py}
+	
+	Here, although in a difficult way, the program checks for each element if the variables is or not its adequate type.
+	
+	If not, the program returns a TypeError.
+	In this context, exec() is not a security issue, because the string which is passed through it is regulated and has been checked.
+	
+	Next, for more general use cases, ConditionCheck():
+	\newpage
+	
+	\subsection{ConditionCheck()}
+	\lstinputlisting[firstline=109,lastline=172]{Automated_Error_Checks.py}
+	\newpage
+	
+	Instead of using two arguments, ConditionCheck() utilizes 3, which are:
+	
+	\begin{enumerate}
+		\item var (the variable)
+		\item conditions (a string with all the conditions var has to follow)
+		\item severity\_mode (it indicates the program what it has to do when an error occurs)
+	\end{enumerate}
+	
+	There are three main features the function presents:
+	
+	- The conditions must not syntax errors (they work exactly like other error handling).
+	
+	- You can fuse one or more conditions with \&\& (AND operator) or || (OR operator).
+	
+	- You can adjust the severity mode to 1 (returns False if condition is not met) or 2 (raises TypeError when condition is not met).
+	
+	The last function is this one:
+	
+	\newpage
+	\subsection{BinaryToTruthList()}
+	\lstinputlisting[firstline=11,lastline=35]{Automated_Error_Checks.py}
+	
+	It transforms a binary number (made with 1s and 0s) to a list with True or False values.
+	\label{binary}
+	
+	\newpage
+	\section{Complex functions: AutomatedBinaryToTruthList(), AutomatedErrorTypeFinder(), AutomatedConditionCheck()}
+	\label{complex}
+	
+	These functions are automated versions of the previous basic ones, so to understand these one learning the simple ones is a must.
+	
+	\subsection{AutomatedBinaryToTruthList()}
+	
+	\lstinputlisting[firstline=177,lastline=193]{Automated_Error_Checks.py}
+	
+	In this function, the argument is a list with multiple binary numbers, which are converted into boolean value lists.
+	
+	\newpage
+	\subsection{AutomatedErrorTypeFinder()}
+	\lstinputlisting[firstline=193,lastline=224]{Automated_Error_Checks.py}
+ 	
+ 	The arguments in this function are lists, which are these ones:
+ 	\begin{enumerate}
+ 		\item variables (the list of variables)
+ 		\item condition\_batch (a list with multiple boolean value lists OR binary numbers)
+ 	\end{enumerate}
+ 	
+ 	For each variable, there must be a condition list. If that is not the case, it is a SyntaxError.
+ 	
+ 	Then, each variable will be checked and it will return True if no error occurs.
+ 	
+ 	\newpage
+ 	\subsection{AutomatedConditionCheck()}
+ 	\lstinputlisting[firstline=224,lastline=263]{Automated_Error_Checks.py}
+ 	
+ 	There are three arguments in this function:
+ 	\begin{enumerate}
+ 		\item variables (a list with all the variables)
+ 		\item condition\_batch (a list with all the conditions)
+ 	\end{enumerate}
+ 	
+ 	There must be a condition and severity mode per variable, if that is not the case, it is a SyntaxError.
+ 	
+ 	The results will be returned if there are no errors.
+ 	
+ 	\newpage
+	\section{Use in Python3 code example.}
+	
+	\lstinputlisting{test.py}
+	\vspace{3cm}
+	\hspace{-0.5cm}ValueError: The conditions (var != 0) are not met with var = 0.
+	
+	It successfully predicts the edge case, without making another error take its place.
+	
+	You only need two lines of code for normal error handling.
+	
+	\label{example}
+	
+	\section{Credits}
+	
+	The author's Github page: \href{https://github.com/CyberCoral}{https://github.com/CyberCoral}
+	
+	\hspace{-0.5cm}The repository url:
+	\href{https://github.com/CyberCoral/Error_Type_Checker}{https://github.com/CyberCoral/Error\_Type\_Checker}
+	
+\end{document}
