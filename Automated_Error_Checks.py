@@ -1,5 +1,5 @@
 
-# ver. Mon/27/Nov/2023
+# ver. Wed/11/Jun/2025
 #
 # Made by: CyberCoral
 # ------------------------------------------------
@@ -74,7 +74,7 @@ def ErrorTypeFinder(var, conditions):
             
     elif len(conditions) >= 7:
         if isinstance(var, str) != True and conditions.index(True) == 6:
-            raise TypeError("{} is not supposed to be {}".format(var, str))
+            raise TypeError("{} is supposed to be {}".format(var, str))
         elif isinstance(var, str) != True and conditions.index(True) != 6:
             pass
         
@@ -86,7 +86,7 @@ def ErrorTypeFinder(var, conditions):
     elif isinstance(var, str) == True and len(conditions) < 7:
         raise TypeError("{} is supposed to be {}, but cannot be valued because of conditions' setting.".format(var, str))
     else:
-        del conditions[6]
+        del conditions[6:]
 
     if len(conditions) <= len(condition):
         for i in range(len(condition) - len(conditions)):
@@ -140,6 +140,12 @@ def ConditionCheck(var, conditions: str, severity_mode: int = 1):
 
     c = "".join([str(i) for i in conditions]).replace("&&"," and ").replace("||"," or ")
     l = []
+
+    # Fixed an issue with variables like 'var' or 'l' not being defined
+    # inside exec(), now all the variables become global inside exec(),
+    # including 'var' and 'l'.
+    globalvars = {k:v for k,v in globals().items()}
+    globalvars.update({"var":var, "l": l})
     
 
     match severity_mode:
@@ -147,7 +153,7 @@ def ConditionCheck(var, conditions: str, severity_mode: int = 1):
         case 1:
 
             try:
-                exec(compile(f"b = {c}\nl.append(b)","<string>","exec"))
+                exec(compile(f"b = {c}\nl.append(b)","<string>","exec"),globalvars)
                 b = l[0]
                 if b == False:
                     return False
@@ -158,7 +164,7 @@ def ConditionCheck(var, conditions: str, severity_mode: int = 1):
         case 2:
             
             try:
-                exec(compile(f"b = {c}\nl.append(b)","<string>","exec"))
+                exec(compile(f"b = {c}\nl.append(b)","<string>","exec"),globalvars)
                 b = l[0]
                 if b == False:
                     raise ValueError(f"The conditions ({c}) are not met with var = {var}.")
@@ -261,3 +267,4 @@ def AutomatedConditionCheck(variables: list, condition_batch: list, severity_mod
         results.append(ConditionCheck(variables[i], condition_batch[i], severity_modes[i]))
 
     return results
+
